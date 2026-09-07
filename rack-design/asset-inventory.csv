@@ -1,0 +1,12 @@
+asset_id,device_name,device_type,model,rack_id,rack_unit,vlan,management_ip,role,status
+SW-A02-002,CORE-SW-01,Switch,Cisco 3650-24PS,RACK-A02,U40,"10;20;30;40",192.168.20.1,Layer 3 core - SVIs / DHCP / ACL,Active
+SW-A01-001,ACCESS-SW-01,Switch,Cisco 2960-24TT,RACK-A01,U42,20,192.168.20.2,Top-of-rack access switch,Active
+SW-A02-001,ACCESS-SW-02,Switch,Cisco 2960-24TT,RACK-A02,U42,20,192.168.20.3,Top-of-rack access switch,Active
+SRV-A01-001,DC-SERVER-01,Server,PT Generic Server,RACK-A01,U40,"10;20",192.168.20.11,Simulated server + DNS service,Active
+SRV-A01-002,DC-SERVER-02,Server,PT Generic Server,RACK-A01,U39,10,n/a,Simulated server,Active
+SRV-A01-003,DC-SERVER-03,Server,PT Generic Server,RACK-A01,U38,10,n/a,Simulated server,Active
+PP-A01-001,PP-A01-01,Patch Panel,24-port Cat6,RACK-A01,U41,n/a,n/a,Copper termination panel,Active
+PP-A02-001,PP-A02-01,Patch Panel,24-port Cat6,RACK-A02,U41,n/a,n/a,Copper termination panel,Active
+WKS-NOC-001,NOC-PC-01,Workstation,PT Generic PC,NOC-ROOM,n/a,30,DHCP,NOC monitoring workstation,Active
+WKS-OPS-001,OPS-PC-01,Workstation,PT Generic PC,NOC-ROOM,n/a,30,DHCP,Operations workstation,Active
+WKS-TST-001,TEST-PC-01,Workstation,PT Generic PC,NOC-ROOM,n/a,40,n/a,Untrusted / staging test host,Active
