@@ -1,0 +1,10 @@
+device,interface,switch,switch_port,port_mode,vlan,ip_address,cable_type,cable_label,purpose
+DC-SERVER-01,NIC1,ACCESS-SW-01,Fa0/1,access,10,192.168.10.11,Cat6,A01-SRV001-NIC1__A01-SW001-Fa0-1,Server data
+DC-SERVER-02,NIC1,ACCESS-SW-01,Fa0/2,access,10,192.168.10.12,Cat6,A01-SRV002-NIC1__A01-SW001-Fa0-2,Server data
+DC-SERVER-03,NIC1,ACCESS-SW-01,Fa0/3,access,10,192.168.10.13,Cat6,A01-SRV003-NIC1__A01-SW001-Fa0-3,Server data
+DC-SERVER-01,NIC2,ACCESS-SW-02,Fa0/5,access,20,192.168.20.11,Cat6,A01-SRV001-NIC2__A02-SW001-Fa0-5,Dedicated server management NIC
+NOC-PC-01,NIC1,ACCESS-SW-02,Fa0/10,access,30,DHCP,Cat6,A02-NOC001-NIC1__A02-SW001-Fa0-10,NOC workstation
+OPS-PC-01,NIC1,ACCESS-SW-02,Fa0/11,access,30,DHCP,Cat6,A02-OPS001-NIC1__A02-SW001-Fa0-11,Operations workstation
+TEST-PC-01,NIC1,ACCESS-SW-02,Fa0/20,access,40,192.168.40.50,Cat6,A02-TST001-NIC1__A02-SW001-Fa0-20,Untrusted test host
+ACCESS-SW-01,Gi0/1,CORE-SW-01,Gi1/0/1,trunk,"10;20;30;40;99",n/a,Cat6A,A01-SW001-Gi0-1__A02-SW002-Gi1-0-1,Inter-rack uplink RACK-A01 to core
+ACCESS-SW-02,Gi0/1,CORE-SW-01,Gi1/0/2,trunk,"10;20;30;40;99",n/a,Cat6A,A02-SW001-Gi0-1__A02-SW002-Gi1-0-2,Intra-rack uplink RACK-A02 to core

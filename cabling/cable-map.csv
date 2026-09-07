@@ -1,0 +1,10 @@
+cable_id,cable_label,source_rack,source_device,source_port,dest_rack,dest_device,dest_port,cable_type,connector,length_m,pt_cable_used,notes
+CBL-001,A01-SRV001-NIC1__A01-SW001-Fa0-1,RACK-A01,DC-SERVER-01,NIC1,RACK-A01,ACCESS-SW-01,Fa0/1,Cat6,RJ45,1,Copper Straight-Through,Intra-rack server patch
+CBL-002,A01-SRV002-NIC1__A01-SW001-Fa0-2,RACK-A01,DC-SERVER-02,NIC1,RACK-A01,ACCESS-SW-01,Fa0/2,Cat6,RJ45,1,Copper Straight-Through,Intra-rack server patch
+CBL-003,A01-SRV003-NIC1__A01-SW001-Fa0-3,RACK-A01,DC-SERVER-03,NIC1,RACK-A01,ACCESS-SW-01,Fa0/3,Cat6,RJ45,1,Copper Straight-Through,Intra-rack server patch
+CBL-004,A01-SRV001-NIC2__A02-SW001-Fa0-5,RACK-A01,DC-SERVER-01,NIC2,RACK-A02,ACCESS-SW-02,Fa0/5,Cat6,RJ45,5,Copper Straight-Through,Management NIC inter-rack run
+CBL-005,A02-NOC001-NIC1__A02-SW001-Fa0-10,NOC-ROOM,NOC-PC-01,NIC1,RACK-A02,ACCESS-SW-02,Fa0/10,Cat6,RJ45,15,Copper Straight-Through,Via patch panel PP-A02-01
+CBL-006,A02-OPS001-NIC1__A02-SW001-Fa0-11,NOC-ROOM,OPS-PC-01,NIC1,RACK-A02,ACCESS-SW-02,Fa0/11,Cat6,RJ45,15,Copper Straight-Through,Via patch panel PP-A02-01
+CBL-007,A02-TST001-NIC1__A02-SW001-Fa0-20,NOC-ROOM,TEST-PC-01,NIC1,RACK-A02,ACCESS-SW-02,Fa0/20,Cat6,RJ45,15,Copper Straight-Through,Via patch panel PP-A02-01
+CBL-008,A01-SW001-Gi0-1__A02-SW002-Gi1-0-1,RACK-A01,ACCESS-SW-01,Gi0/1,RACK-A02,CORE-SW-01,Gi1/0/1,Cat6A,RJ45,10,Copper Cross-Over,Inter-rack trunk - real data centers may use MMF, SMF, DAC/AOC or other media depending on distance, bandwidth and design
+CBL-009,A02-SW001-Gi0-1__A02-SW002-Gi1-0-2,RACK-A02,ACCESS-SW-02,Gi0/1,RACK-A02,CORE-SW-01,Gi1/0/2,Cat6A,RJ45,2,Copper Cross-Over,Intra-rack trunk
