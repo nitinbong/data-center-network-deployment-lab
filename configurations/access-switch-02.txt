@@ -1,0 +1,96 @@
+!===========================================================
+! ACCESS-SW-02  -  Cisco 2960-24TT  -  RACK-A02 U42
+! Role: Top-of-rack access switch. Management, ops, untrusted ports.
+!===========================================================
+!
+! SECTION A is the reference configuration (what should be applied).
+! SECTION B is where the ACTUAL "show running-config" output goes.
+! If they disagree, SECTION B is the truth.
+!
+!===========================================================
+! SECTION A - REFERENCE CONFIGURATION
+!===========================================================
+!
+! --- Phase 1: identity and port descriptions ---
+enable
+configure terminal
+hostname ACCESS-SW-02
+no ip domain-lookup
+banner motd #Authorized access only. ACCESS-SW-02 / RACK-A02 U42#
+!
+interface FastEthernet0/5
+ description DC-SERVER-01 NIC2 MGMT | A01-SRV001-NIC2__A02-SW001-Fa0-5
+ exit
+interface FastEthernet0/10
+ description NOC-PC-01 | A02-NOC001-NIC1__A02-SW001-Fa0-10
+ exit
+interface FastEthernet0/11
+ description OPS-PC-01 | A02-OPS001-NIC1__A02-SW001-Fa0-11
+ exit
+interface FastEthernet0/20
+ description TEST-PC-01 UNTRUSTED | A02-TST001-NIC1__A02-SW001-Fa0-20
+ exit
+interface GigabitEthernet0/1
+ description UPLINK to CORE-SW-01 Gi1/0/2
+ exit
+!
+! --- Phase 2: VLAN database and access ports ---
+vlan 10
+ name SERVERS
+ exit
+vlan 20
+ name MANAGEMENT
+ exit
+vlan 30
+ name OPERATIONS
+ exit
+vlan 40
+ name UNTRUSTED
+ exit
+vlan 99
+ name NATIVE
+ exit
+!
+interface FastEthernet0/5
+ switchport mode access
+ switchport access vlan 20
+ exit
+interface range FastEthernet0/10 - 11
+ switchport mode access
+ switchport access vlan 30
+ exit
+interface FastEthernet0/20
+ switchport mode access
+ switchport access vlan 40
+ exit
+!
+! --- Phase 3: trunk uplink ---
+interface GigabitEthernet0/1
+ switchport mode trunk
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
+ exit
+!
+! --- Phase 4: management SVI ---
+! This switch does NOT perform inter-VLAN routing. The VLAN 20 SVI
+! exists solely so the switch itself is reachable for management.
+! CORE-SW-01 performs all routing.
+interface Vlan20
+ description MANAGEMENT IP - ACCESS-SW-02
+ ip address 192.168.20.3 255.255.255.0
+ no shutdown
+ exit
+!
+ip default-gateway 192.168.20.1
+!
+end
+copy running-config startup-config
+!
+!===========================================================
+! SECTION B - ACTUAL CAPTURED CONFIGURATION
+!===========================================================
+!
+! >>> PASTE THE COMPLETE OUTPUT OF "show running-config" BELOW <<<
+!
+! [ AWAITING ACTUAL CAPTURE FROM PACKET TRACER ]
+!

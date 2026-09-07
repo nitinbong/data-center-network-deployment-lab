@@ -1,0 +1,118 @@
+!===========================================================
+! CORE-SW-01  -  Cisco 3650-24PS  -  RACK-A02 U40
+! Role: Layer 3 core. Inter-VLAN routing, DHCP server, ACL.
+!===========================================================
+!
+! SECTION A - REFERENCE CONFIGURATION
+! This is the configuration that SHOULD be present on the device.
+! It is the exact command set applied across build Phases 1-7.
+!
+! SECTION B (at the bottom of this file) is where the ACTUAL
+! captured output of "show running-config" must be pasted.
+! If A and B disagree, B is the truth and A needs correcting.
+!
+!===========================================================
+! SECTION A - REFERENCE CONFIGURATION
+!===========================================================
+!
+! --- Phase 1: identity ---
+enable
+configure terminal
+hostname CORE-SW-01
+no ip domain-lookup
+banner motd #Authorized access only. CORE-SW-01 / RACK-A02 U40#
+!
+interface GigabitEthernet1/0/1
+ description TRUNK to ACCESS-SW-01 Gi0/1 -- RACK-A01 TOR uplink
+ exit
+interface GigabitEthernet1/0/2
+ description TRUNK to ACCESS-SW-02 Gi0/1 -- RACK-A02 TOR uplink
+ exit
+!
+! --- Phase 2: VLAN database ---
+vlan 10
+ name SERVERS
+ exit
+vlan 20
+ name MANAGEMENT
+ exit
+vlan 30
+ name OPERATIONS
+ exit
+vlan 40
+ name UNTRUSTED
+ exit
+vlan 99
+ name NATIVE
+ exit
+!
+! --- Phase 3: trunks ---
+! NOTE: Use "switchport trunk encapsulation dot1q" only if the selected
+! Packet Tracer switch model supports/requires it. If IOS rejects the
+! command, omit it and configure "switchport mode trunk" directly.
+interface range GigabitEthernet1/0/1 - 2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
+ exit
+!
+! --- Phase 4: routing and SVIs ---
+ip routing
+!
+interface Vlan10
+ description GATEWAY - VLAN 10 SERVERS
+ ip address 192.168.10.1 255.255.255.0
+ no shutdown
+ exit
+interface Vlan20
+ description GATEWAY - VLAN 20 MANAGEMENT
+ ip address 192.168.20.1 255.255.255.0
+ no shutdown
+ exit
+interface Vlan30
+ description GATEWAY - VLAN 30 OPERATIONS
+ ip address 192.168.30.1 255.255.255.0
+ no shutdown
+ exit
+interface Vlan40
+ description GATEWAY - VLAN 40 UNTRUSTED
+ ip address 192.168.40.1 255.255.255.0
+ no shutdown
+ exit
+!
+! --- Phase 5: DHCP for VLAN 30 ---
+ip dhcp excluded-address 192.168.30.1 192.168.30.100
+!
+ip dhcp pool OPS-POOL
+ network 192.168.30.0 255.255.255.0
+ default-router 192.168.30.1
+ dns-server 192.168.10.11
+ domain-name dclab.local
+ exit
+!
+! --- Phase 7: baseline ACL ---
+ip access-list extended UNTRUSTED-TO-MGMT
+ remark Deny VLAN 40 UNTRUSTED access to VLAN 20 MANAGEMENT
+ deny ip 192.168.40.0 0.0.0.255 192.168.20.0 0.0.0.255
+ remark Permit all other traffic
+ permit ip any any
+ exit
+!
+interface Vlan40
+ ip access-group UNTRUSTED-TO-MGMT in
+ exit
+!
+end
+copy running-config startup-config
+!
+!===========================================================
+! SECTION B - ACTUAL CAPTURED CONFIGURATION
+!===========================================================
+!
+! >>> PASTE THE COMPLETE OUTPUT OF "show running-config" BELOW <<<
+! >>> Captured from CORE-SW-01 at the known-good baseline,    <<<
+! >>> after Phase 7 and before any incident injection.        <<<
+!
+! [ AWAITING ACTUAL CAPTURE FROM PACKET TRACER ]
+!

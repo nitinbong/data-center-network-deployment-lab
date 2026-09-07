@@ -1,0 +1,85 @@
+!===========================================================
+! ACCESS-SW-01  -  Cisco 2960-24TT  -  RACK-A01 U42
+! Role: Top-of-rack access switch. Server VLAN 10 ports.
+!===========================================================
+!
+! SECTION A is the reference configuration (what should be applied).
+! SECTION B is where the ACTUAL "show running-config" output goes.
+! If they disagree, SECTION B is the truth.
+!
+!===========================================================
+! SECTION A - REFERENCE CONFIGURATION
+!===========================================================
+!
+! --- Phase 1: identity and port descriptions ---
+enable
+configure terminal
+hostname ACCESS-SW-01
+no ip domain-lookup
+banner motd #Authorized access only. ACCESS-SW-01 / RACK-A01 U42#
+!
+interface FastEthernet0/1
+ description DC-SERVER-01 NIC1 DATA | A01-SRV001-NIC1__A01-SW001-Fa0-1
+ exit
+interface FastEthernet0/2
+ description DC-SERVER-02 NIC1 DATA | A01-SRV002-NIC1__A01-SW001-Fa0-2
+ exit
+interface FastEthernet0/3
+ description DC-SERVER-03 NIC1 DATA | A01-SRV003-NIC1__A01-SW001-Fa0-3
+ exit
+interface GigabitEthernet0/1
+ description UPLINK to CORE-SW-01 Gi1/0/1
+ exit
+!
+! --- Phase 2: VLAN database and access ports ---
+vlan 10
+ name SERVERS
+ exit
+vlan 20
+ name MANAGEMENT
+ exit
+vlan 30
+ name OPERATIONS
+ exit
+vlan 40
+ name UNTRUSTED
+ exit
+vlan 99
+ name NATIVE
+ exit
+!
+interface range FastEthernet0/1 - 3
+ switchport mode access
+ switchport access vlan 10
+ exit
+!
+! --- Phase 3: trunk uplink ---
+interface GigabitEthernet0/1
+ switchport mode trunk
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,99
+ exit
+!
+! --- Phase 4: management SVI ---
+! This switch does NOT perform inter-VLAN routing. The VLAN 20 SVI
+! exists solely so the switch itself is reachable for management.
+! CORE-SW-01 performs all routing.
+interface Vlan20
+ description MANAGEMENT IP - ACCESS-SW-01
+ ip address 192.168.20.2 255.255.255.0
+ no shutdown
+ exit
+!
+ip default-gateway 192.168.20.1
+!
+end
+copy running-config startup-config
+!
+!===========================================================
+! SECTION B - ACTUAL CAPTURED CONFIGURATION
+!===========================================================
+!
+! >>> PASTE THE COMPLETE OUTPUT OF "show running-config" BELOW <<<
+!
+! [ AWAITING ACTUAL CAPTURE FROM PACKET TRACER ]
+!
